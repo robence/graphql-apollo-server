@@ -41,7 +41,7 @@ input PostWhereUniqueInput {
 
 type Query {
   feed: [Post]
-  filterPosts(searchString: String): [Post]
+  filterPosts(searchString: String!): [Post]
   post(where: PostWhereUniqueInput!): Post
 }
 

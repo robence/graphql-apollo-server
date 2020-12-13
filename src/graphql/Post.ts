@@ -1,4 +1,10 @@
-import { objectType, extendType, stringArg, intArg } from '@nexus/schema'
+import {
+  objectType,
+  extendType,
+  stringArg,
+  intArg,
+  nonNull,
+} from '@nexus/schema'
 
 export const Post = objectType({
   name: 'Post',
@@ -29,7 +35,7 @@ export const PostQuery = extendType({
     t.list.field('filterPosts', {
       type: 'Post',
       args: {
-        searchString: stringArg({ nullable: true }),
+        searchString: stringArg({ required: true }),
       },
       resolve: (_, { searchString }, ctx) => {
         return ctx.prisma.post.findMany({
