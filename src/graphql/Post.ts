@@ -1,10 +1,4 @@
-import {
-  objectType,
-  extendType,
-  stringArg,
-  intArg,
-  nonNull,
-} from '@nexus/schema'
+import { objectType, extendType, stringArg, intArg, nonNull } from 'nexus'
 
 export const Post = objectType({
   name: 'Post',
@@ -35,7 +29,7 @@ export const PostQuery = extendType({
     t.list.field('filterPosts', {
       type: 'Post',
       args: {
-        searchString: stringArg({ required: true }),
+        searchString: nonNull(stringArg()),
       },
       resolve: (_, { searchString }, ctx) => {
         return ctx.prisma.post.findMany({
@@ -60,9 +54,9 @@ export const PostMutation = extendType({
     t.field('createDraft', {
       type: 'Post',
       args: {
-        title: stringArg({ nullable: false }),
+        title: nonNull(stringArg()),
         content: stringArg(),
-        authorEmail: stringArg({ nullable: false }),
+        authorEmail: nonNull(stringArg()),
       },
       resolve: (_, { title, content, authorEmail }, ctx) => {
         return ctx.prisma.post.create({
@@ -78,11 +72,10 @@ export const PostMutation = extendType({
       },
     })
 
-    t.field('publish', {
+    t.nonNull.field('publish', {
       type: 'Post',
-      nullable: true,
       args: {
-        id: intArg(),
+        id: nonNull(intArg()),
       },
       resolve: (_, { id }, ctx) => {
         return ctx.prisma.post.update({
