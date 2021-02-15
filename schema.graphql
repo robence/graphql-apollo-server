@@ -18,7 +18,7 @@ type Post {
   title: String!
 }
 
-input PostCreateManyWithoutAuthorInput {
+input PostCreateNestedManyWithoutAuthorInput {
   connect: [PostWhereUniqueInput!]
   connectOrCreate: [PostCreateOrConnectWithoutauthorInput!]
   create: [PostCreateWithoutAuthorInput!]
@@ -55,5 +55,5 @@ type User {
 input UserCreateInput {
   email: String!
   name: String
-  posts: PostCreateManyWithoutAuthorInput
+  posts: PostCreateNestedManyWithoutAuthorInput
 }
